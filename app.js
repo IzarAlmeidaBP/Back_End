@@ -25,7 +25,6 @@ app.use(productRouter);
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASS;
 
-//conectando ao banco com login e senha
 mongoose
   .connect(
     `mongodb+srv://${dbUser}:${dbPassword}@cluster0.wxxottw.mongodb.net/?retryWrites=true&w=majority`,
