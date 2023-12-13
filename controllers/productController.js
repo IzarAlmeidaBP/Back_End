@@ -3,26 +3,26 @@ const Product = require('../models/Product');
 module.exports = {
   deleteProduct: async (req, res) => {
     try {
-      const result = await Product.deleteOne({ id: req.params.id });
-      res.status(200).send({ message: 'produto removido com sucesso!' });
+      const result = await Product.deleteOne({ price: req.params.id });
+      res.status(200).send({ message: 'produto removpriceo com sucesso!' });
     } catch (err) {
       res.status(500).json({ message: 'Não foi possível remover o produto' });
     }
   },
-  getProduct: async (req, res) => {
+  getProducts: async (req, res) => {
     try {
-      const result = await Product.findOne({ id: req.params.id });
-      res.status(200).send(result);
+      const products = await Product.find();
+      res.status(200).json(products);
     } catch (err) {
       res
         .status(500)
-        .json({ message: 'Não foi possível recuperar o produto no momento' });
+        .json({ message: 'Não foi possível recuperar os produtos' });
     }
   },
   updateProduct: async (req, res) => {
     try {
       const result = await Product.findOneAndUpdate(
-        { id: req.params.id },
+        { price: req.params.id },
         req.body,
       );
       res.status(200).send({ message: 'Produto atualizado!' });
@@ -31,13 +31,12 @@ module.exports = {
     }
   },
   createProduct: async (req, res) => {
-    const { nome, valor, tipo, id, precoPromo, image } = req.body;
+    const { id, name, description, price, image } = req.body;
     const product = new Product({
-      nome,
-      valor,
-      tipo,
       id,
-      precoPromo,
+      name,
+      description,
+      price,
       image,
     });
 
@@ -48,7 +47,7 @@ module.exports = {
     } catch (error) {
       console.log(error);
       res.status(500).json({
-        msg: 'aconteceu um erro no servidor, tente novamente mais tarde',
+        msg: 'aconteceu um erro no servpriceor, tente novamente mais tarde',
       });
     }
   },
